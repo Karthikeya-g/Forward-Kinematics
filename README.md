@@ -9,8 +9,8 @@ This repository implements a **Forward Kinematics Solver** for a 4-link serial m
 ### 1. Setup
 Clone the repository and install the dependencies (NumPy).
 ```bash
-git clone [https://github.com/Karthikeya-g/robot-arm-fk.git](https://github.com/Karthikeya-g/robot-arm-fk.git)
-cd robot-arm-fk
+git clone [https://github.com/Karthikeya-g/Forward-Kinematics/tree/main]([https://github.com/Karthikeya-g/robot-arm-fk](https://github.com/Karthikeya-g/Forward-Kinematics/tree/main).git)
+cd Forward-Kinematics
 pip install -r requirements.txt
 ````
 
@@ -21,7 +21,7 @@ I have included a verification script that checks the kinematics against 4 known
 **Run the command:**
 
 ```bash
-python verify_fk.py
+python -m tests.test_case.py
 ```
 
 **Expected Output:**
