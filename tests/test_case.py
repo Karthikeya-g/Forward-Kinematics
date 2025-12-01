@@ -10,7 +10,6 @@ def test_case(name, j1, j2, j3, j4, expected_pos):
     result = fk.solve(joints)
     
     # Check if result matches expected (allowing for small math errors)
-    # We use np.allclose for float comparison
     is_correct = np.allclose(result, expected_pos, atol=1e-2)
     
     status = "✅ PASS" if is_correct else "❌ FAIL"
@@ -24,36 +23,31 @@ if __name__ == "__main__":
     print("--- 🤖 ROBOT ARM VERIFICATION ---")
 
     # TEST 1: The "Zero" Pose
-    # If all angles are 0, the arm extends straight along X.
-    # Length = L + L + L + L = 4.0 meters
+    # All links straight out along X-axis.
     test_case("Zero Pose (Straight Out)", 
               0, 0, 0, 0, 
               (4.0, 0.0, 0.0))
 
-    # TEST 2: The "Upward" Pose (J1=90 degrees)
-    # If J1 rotates 90 deg, the whole arm should point along Y.
+    # TEST 2: The "Upward" Pose 
+    # Base rotates 90. Whole arm points along Y.
     test_case("90 Deg Base Rotation", 
               90, 0, 0, 0, 
               (0.0, 4.0, 0.0))
 
-    # TEST 3: The "Cobra" Pose (J2=90 degrees)
-    # J1=0 (Face X)
-    # J2=90 (Bend Up). 
-    # Link 1 is flat (1m). Links 2,3,4 go UP (3m).
-    # Expected: X=1, Y=0, Z=3
+    # TEST 3: The "Cobra" Pose
+    # J1=0 (Face X), J2=90 (Turn Up).
+    # L1 (1m) + L2,L3,L4 (3m Up)
     test_case("Cobra Pose (Bend Up)", 
               0, 90, 0, 0, 
               (1.0, 0.0, 3.0))
 
-    # TEST 4: The "Square" Pose (J2=90, J3=90)
-    # J1=0 (Face X)
-    # J2=90 (Link 2 goes Up)
-    # J3=90 (Link 3 goes Back towards -X)
-    # J4=0 (Link 4 continues Back towards -X)
-    # Link 1 (Forward 1m) -> Link 2 (Up 1m) -> Link 3 (Back 1m) -> Link 4 (Back 1m)
-    # Net X = 1 - 1 - 1 = -1
-    # Net Z = 1
-    # Expected: X=-1, Y=0, Z=1
-    test_case("Square Hook", 
+    # TEST 4: The "Corkscrew" Pose (CORRECTED)
+    # Inputs: 0, 90, 90, 0
+    # Logic:
+    # 1. Link 1 goes Forward (X) -> Pos (1, 0, 0)
+    # 2. J2 (Perpendicular) rotates 90 -> Link 2 goes Up (Z) -> Pos (1, 0, 1)
+    # 3. J3 (Perpendicular) rotates 90 -> Link 3 goes Left (-Y) -> Pos (1, -1, 1)
+    # 4. J4 (0) -> Link 4 continues Left (-Y) -> Pos (1, -2, 1)
+    test_case("Corkscrew (3D Turn)", 
               0, 90, 90, 0, 
-              (-1.0, 0.0, 1.0))
+              (1.0, -2.0, 1.0))
