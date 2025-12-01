@@ -1,8 +1,4 @@
-Here is the complete, finalized code for your `README.md` file.
 
-Copy the content below exactly and paste it into your `README.md`.
-
-````markdown
 # 4-DOF Robot Arm Forward Kinematics
 
 This repository implements a **Forward Kinematics Solver** for a 4-link serial manipulator using Homogeneous Transformation Matrices (Denavit-Hartenberg Convention).
@@ -82,14 +78,3 @@ Based on the problem statement "the axis of each joint is perpendicular to the p
   * **Coordinate Frame:** A Positive Joint 2 rotation moves the arm **Up** (+Z), and a subsequent Positive Joint 3 rotation moves it **Left** (+Y). This coordinate sign convention was verified via the "Corkscrew" test case.
 
 -----
-
-## 📂 Project Structure
-
-  * `src/forward_kinematics.py` - Core solver class using NumPy matrices.
-  * `src/__init__.py` - Package exposure for clean imports.
-  * `verify_fk.py` - Validation script with geometric edge cases.
-
-<!-- end list -->
-
-```
-```
